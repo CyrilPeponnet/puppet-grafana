@@ -18,7 +18,7 @@ Puppet::Type.newtype(:grafana_dashboard) do
 
   ensurable
 
-  newparam(:title, namevar: true) do
+  newparam(:title, namevar => true) do
     desc 'The title of the dashboard.'
   end
 

@@ -17,7 +17,7 @@ Puppet::Type.newtype(:grafana_datasource) do
 
   ensurable
 
-  newparam(:name, namevar: true) do
+  newparam(:name, namevar => true) do
     desc 'The name of the datasource.'
   end
 
