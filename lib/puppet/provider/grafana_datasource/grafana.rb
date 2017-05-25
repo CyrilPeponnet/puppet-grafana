@@ -16,10 +16,10 @@ require 'json'
 
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'grafana'))
 
-Puppet::Type.type(:grafana_datasource).provide(:grafana, parent: Puppet::Provider::Grafana) do
+Puppet::Type.type(:grafana_datasource).provide(:grafana, :parent => Puppet::Provider::Grafana) do
   desc 'Support for Grafana datasources'
 
-  defaultfor kernel: 'Linux'
+  defaultfor :kernel =>  'Linux'
 
   def datasources
     response = send_request('GET', '/api/datasources')
@@ -39,16 +39,16 @@ Puppet::Type.type(:grafana_datasource).provide(:grafana, parent: Puppet::Provide
         datasource = JSON.parse(response.body)
 
         {
-          id: datasource['id'],
-          name: datasource['name'],
-          url: datasource['url'],
-          type: datasource['type'],
-          user: datasource['user'],
-          password: datasource['password'],
-          database: datasource['database'],
-          access_mode: datasource['access'],
-          is_default: datasource['isDefault'] ? :true : :false,
-          json_data: datasource['jsonData']
+          :id => datasource['id'],
+          :name => datasource['name'],
+          :url => datasource['url'],
+          :type => datasource['type'],
+          :user => datasource['user'],
+          :password => datasource['password'],
+          :database => datasource['database'],
+          :access_mode => datasource['access'],
+          :is_default => datasource['isDefault'] ? :true : :false,
+          :json_data => datasource['jsonData']
         }
       end
     rescue JSON::ParserError
@@ -141,15 +141,15 @@ Puppet::Type.type(:grafana_datasource).provide(:grafana, parent: Puppet::Provide
 
   def save_datasource
     data = {
-      name: resource[:name],
-      type: resource[:type],
-      url: resource[:url],
-      access: resource[:access_mode],
-      database: resource[:database],
-      user: resource[:user],
-      password: resource[:password],
-      isDefault: (resource[:is_default] == :true),
-      jsonData: resource[:json_data]
+      :name => resource[:name],
+      :type => resource[:type],
+      :url => resource[:url],
+      :access => resource[:access_mode],
+      :database => resource[:database],
+      :user => resource[:user],
+      :password => resource[:password],
+      :isDefault => (resource[:is_default] == :true),
+      :jsonData => resource[:json_data]
     }
 
     if datasource.nil?

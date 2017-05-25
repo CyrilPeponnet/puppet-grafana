@@ -73,8 +73,8 @@ class Puppet::Provider::Grafana < Puppet::Provider
     end
 
     Net::HTTP.start(grafana_host, grafana_port,
-                    use_ssl: grafana_scheme == 'https',
-                    verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
+                    :use_ssl => grafana_scheme == 'https',
+                    :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
       http.request(request)
     end
   end
